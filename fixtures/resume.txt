@@ -1,0 +1,7 @@
+SYNTHETIC RESUME - FICTIONAL PERSON
+Avery Quill - AI/ML Engineer
+Summary: 5 years building production machine learning systems.
+Skills: Python, PyTorch, scikit-learn, SQL, Docker, AWS, NLP, LLM fine-tuning, FastAPI, Git
+Experience:
+- Built NLP classification services in Python and PyTorch, deployed with Docker on AWS.
+- Developed FastAPI inference APIs and SQL feature pipelines.

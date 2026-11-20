@@ -1,0 +1,7 @@
+[
+ {"source":"SYNTHETIC","job_id":"S-001","title":"Machine Learning Engineer","company":"Example Corp (SYNTHETIC)","location":"Remote","description":"SYNTHETIC. Build machine learning models with Python, PyTorch and SQL. Deploy with Docker on AWS.","job_url":"https://example.invalid/jobs/S-001"},
+ {"source":"SYNTHETIC","job_id":"S-002","title":"NLP Engineer","company":"Foo Labs (SYNTHETIC)","location":"Austin, TX","description":"SYNTHETIC. NLP and LLM work using Python, FastAPI and Git.","job_url":"https://example.invalid/jobs/S-002"},
+ {"source":"SYNTHETIC","job_id":"S-003","title":"MLOps Engineer","company":"Bar Systems (SYNTHETIC)","location":"Chicago, IL","description":"SYNTHETIC. MLOps with Kubernetes, Docker, AWS, Python and Spark.","job_url":"https://example.invalid/jobs/S-003"},
+ {"source":"SYNTHETIC","job_id":"S-004","title":"Data Analyst","company":"Baz Inc (SYNTHETIC)","location":"New York, NY","description":"SYNTHETIC. Reporting with SQL and Tableau.","job_url":"https://example.invalid/jobs/S-004"},
+ {"source":"SYNTHETIC","job_id":"S-005","title":"Deep Learning Researcher","company":"Qux AI (SYNTHETIC)","location":"Remote","description":"SYNTHETIC. TensorFlow, PyTorch, Python and scikit-learn research.","job_url":"https://example.invalid/jobs/S-005"}
+]
