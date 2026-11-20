@@ -33,6 +33,15 @@ if jobs_up:
             json.dump([{c: r[c] for c in REQ} for r in rows], f)
 (st.warning if label == "SYNTHETIC FIXTURE" else st.info)("Job source: " + label + (" - all jobs are fictional records" if label == "SYNTHETIC FIXTURE" else ""))
 
+kw = st.text_input("Job title keyword (optional)")
+loc = st.text_input("Location (optional)")
+
+
+def filter_jobs(jobs, kw, loc):
+    kw, loc = kw.strip().lower(), loc.strip().lower()
+    return [j for j in jobs if kw in j["title"].lower() and loc in j["location"].lower()]
+
+
 if up and not jobs_err:
     text = up.getvalue().decode("utf-8", errors="replace")
     st.write("**Candidate skills:**", ", ".join(discover.extract_skills(text)) or "none found")
@@ -41,8 +50,17 @@ if up and not jobs_err:
         rpath = os.path.join(OUT, "uploaded_resume.txt")
         with open(rpath, "w", encoding="utf-8") as f:
             f.write(text)
+        st.session_state.pop("jobs", None)
+        with open(jobs_path, encoding="utf-8") as f:
+            kept = filter_jobs(json.load(f), kw, loc)
+        if not kept:
+            st.info("No jobs match your filters. Try clearing or changing them.")
+            st.stop()
+        fpath = os.path.join(OUT, "filtered_jobs.json")
+        with open(fpath, "w", encoding="utf-8") as f:
+            json.dump(kept, f)
         js = os.path.join(OUT, "jobs.v1.json")
-        discover.run(rpath, jobs_path, js)
+        discover.run(rpath, fpath, js)
         cp = os.path.join(OUT, "matching_jobs.csv")
         report.run(js, cp)
         with open(js, encoding="utf-8") as f:
@@ -53,9 +71,13 @@ if up and not jobs_err:
 
 if "jobs" in st.session_state:
     st.subheader("Ranked jobs (" + st.session_state.get("label", "") + ")")
+    st.caption("Score = matched job skills / required job skills x 100. Required skills are the "
+               "dictionary skills found in the job title and description; missing skills are "
+               "required skills not found in your resume.")
     st.dataframe(
         [{"title": j["title"], "company": j["company"], "location": j["location"],
           "score": j["score"], "matched skills": ", ".join(j["matched_skills"]),
+          "missing skills": ", ".join(j["missing_skills"]),
           "job URL": j["job_url"]} for j in st.session_state["jobs"]],
         column_config={"job URL": st.column_config.LinkColumn("job URL")},
         hide_index=True, use_container_width=True)
